@@ -31,5 +31,16 @@ namespace Chess
             To = new Square(move.Substring(3, 2));
             Promotion = move.Length == 6 ? (Figure)move[5] : Figure.none; 
         }
+
+        public int DeltaX { get { return To.X - From.X; } }
+        public int DeltaY { get { return To.Y - From.Y; } }
+
+
+        public int AbsDeltaX { get { return Math.Abs(DeltaX); } }
+        public int AbsDeltaY { get { return Math.Abs(DeltaY); } }
+
+
+        public int AbsSignX { get { return Math.Sign(DeltaX); } }
+        public int AbsSignY { get { return Math.Sign(DeltaY); } }
     }
 }

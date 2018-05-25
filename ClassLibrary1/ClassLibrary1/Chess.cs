@@ -17,23 +17,29 @@ namespace Chess
             private set { _fen = value; }
         }
         Board board;
+        Moves moves;
 
         // Constructor
         public Chess(string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
         {
             this.Fen = fen;
             board = new Board(fen);
+            moves = new Moves(board);
         }
 
         Chess(Board board)
         {
-            this.board = board; 
+            this.board = board;
+            Fen = board.Fen;
+            moves = new Moves(board);
         }
 
         // Method for moving
         public Chess Move(string move) // Pe2e4         Pe7e8Q
         {
             var figureMoving = new FigureMoving(move);
+            if (!moves.CanMove(figureMoving))
+                return this;
             var nextBoard = board.Move(figureMoving);
             return new Chess(nextBoard);
         }
