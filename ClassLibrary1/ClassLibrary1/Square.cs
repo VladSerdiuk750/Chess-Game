@@ -14,6 +14,7 @@ namespace Chess
         // Properties location
         public int X { get; private set; }
         public int Y { get; private set; }
+        public string Name { get{ return ((char)('a' + X)).ToString() + (Y + 1).ToString(); } }
 
         // Constructor for defining by coordinates
         public Square(int x, int y)
@@ -45,5 +46,16 @@ namespace Chess
 
         public static bool operator ==(Square a, Square b) => a.X == b.X && a.Y == b.Y;
         public static bool operator !=(Square a, Square b) => !(a == b);
+
+        public static IEnumerable<Square> YieldSquares()
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    yield return new Square(x, y);
+                }
+            }
+        }
     }
 }

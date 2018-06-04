@@ -18,6 +18,7 @@ namespace Chess
         }
         Board board;
         Moves moves;
+        List<FigureMoving> figureMovings;
 
         // Constructor
         public Chess(string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
@@ -40,6 +41,8 @@ namespace Chess
             var figureMoving = new FigureMoving(move);
             if (!moves.CanMove(figureMoving))
                 return this;
+            if(board.IsCheckAfterMove(figureMoving))
+                return this;
             var nextBoard = board.Move(figureMoving);
             return new Chess(nextBoard);
         }
@@ -50,6 +53,36 @@ namespace Chess
             var square = new Square(x, y);
             Figure figure = board.GetFigureAt(square);
             return figure == Figure.none ? '.' : (char)figure;
+        }
+        void FindAllMoves()
+        {
+            figureMovings = new List<FigureMoving>();
+            foreach (FigureOnSquare fs in board.YieldFigures())
+            {
+                foreach (Square to in Square.YieldSquares())
+                {
+                    FigureMoving figureMoving = new FigureMoving(fs, to);
+                    if (moves.CanMove(figureMoving))
+                        if(!board.IsCheckAfterMove(figureMoving))
+                            figureMovings.Add(figureMoving);
+                }
+            } 
+        }
+
+        public ICollection<string> GetAllMoves()
+        {
+            FindAllMoves();
+            List<string> list = new List<string>();
+            foreach (FigureMoving fm in figureMovings)
+            {
+                list.Add(fm.ToString());
+            }
+            return list;
+        }
+
+        public bool IsCheck()
+        {
+            return board.IsCheck();
         }
     }
 }

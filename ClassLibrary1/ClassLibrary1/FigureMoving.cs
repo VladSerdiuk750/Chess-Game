@@ -40,7 +40,17 @@ namespace Chess
         public int AbsDeltaY { get { return Math.Abs(DeltaY); } }
 
 
-        public int AbsSignX { get { return Math.Sign(DeltaX); } }
-        public int AbsSignY { get { return Math.Sign(DeltaY); } }
+        public int SignX { get { return Math.Sign(DeltaX); } }
+        public int SignY { get { return Math.Sign(DeltaY); } }
+
+        public override string ToString()
+        {
+            string text = (char)Figure + From.Name + To.Name;
+            if (Promotion != Figure.none)
+            {
+                text += (char)Promotion;
+            }
+            return text;
+        }
     }
 }
