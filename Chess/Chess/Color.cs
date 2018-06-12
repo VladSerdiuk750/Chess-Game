@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Chess
+﻿namespace Chess
 {
     // Enumeration for colors
     enum Color
@@ -15,7 +9,7 @@ namespace Chess
     }
     
     // class for extention method to enumeration
-    static class ColorMethods
+    static class ColorExtentionMethods
     {
         // Extention method for enumeration to change the color
         public static Color FlipColor(this Color color)

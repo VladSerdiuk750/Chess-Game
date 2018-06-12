@@ -1,82 +1,92 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Chess
 {
     // Main class for chess
     public class Chess
     {
+        #region Fields and Properties
+
+        Board _board;
+        Moves _moves;
+        List<FigureMoving> _figureMovings;
+
         // Field for saving Fen
         public string Fen { get; private set; }
-        Board board;
-        Moves moves;
-        List<FigureMoving> figureMovings;
+        public bool IsCheck { get { return _board.IsCheck(); } }
 
-        // Constructor
+        #endregion
+
+        #region Constructors
+
         public Chess(string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
         {
             this.Fen = fen;
-            board = new Board(fen);
-            moves = new Moves(board);
+            _board = new Board(fen);
+            _moves = new Moves(_board);
         }
 
-        Chess(Board board)
+        private Chess(Board board)
         {
-            this.board = board;
+            this._board = board;
             Fen = board.Fen;
-            moves = new Moves(board);
+            _moves = new Moves(board);
         }
 
-        // Method for moving
+        #endregion
+
+        #region Move
+
         public Chess Move(string move) // Pe2e4         Pe7e8Q
         {
-            var figureMoving = new FigureMoving(move);
-            if (!moves.CanMove(figureMoving))
-                return this;
-            if (board.IsCheckAfterMove(figureMoving))
-                return this;
-            Board nextBoard = board.Move(figureMoving);
-            return new Chess(nextBoard);
+            var fm = new FigureMoving(move);
+           
+            if (_moves.CanMove(fm) == true)
+                if (_board.IsCheckAfterMove(fm) == false)
+                    return new Chess(_board.Move(fm));
+
+            return this;
         }
+
+        #endregion
+
+        #region Get figure at
 
         // For getting figure from coordinates
         public char GetFigureAt(int x, int y)
         {
             var square = new Square(x, y);
-            Figure figure = board.GetFigureAt(square);
-            return figure == Figure.none ? '.' : (char)figure;
+            Figure figure = _board.GetFigureAt(square);
+            return (figure != Figure.none) ? (char)figure : '.';
         }
 
+        #endregion
 
-        void FindAllMoves()
-        {
-            figureMovings = new List<FigureMoving>();
-            foreach (FigureOnSquare fs in board.YieldFigures())
-            {
-                foreach (Square to in Square.YieldSquares())
-                {
-                    FigureMoving figureMoving = new FigureMoving(fs, to);
-                    if (moves.CanMove(figureMoving))
-                        if(!board.IsCheckAfterMove(figureMoving))
-                            figureMovings.Add(figureMoving);
-                }
-            } 
-        }
+        #region Get and find all moves
 
         public ICollection<string> GetAllMoves()
         {
             FindAllMoves();
-            List<string> list = new List<string>();
-            foreach (FigureMoving fm in figureMovings)
-            {
-                list.Add(fm.ToString());
-            }
-            return list;
+            var listOfMoves = new List<string>();
+            _figureMovings.ForEach(x => listOfMoves.Add(x.ToString()));
+            return (listOfMoves as ICollection<string>);
         }
 
-        public bool IsCheck() => board.IsCheck();
+        private void FindAllMoves()
+        {
+            _figureMovings = new List<FigureMoving>();
+            foreach (FigureOnSquare fs in _board.YieldFigures())
+            {
+                foreach (Square to in Square.YieldSquares())
+                {
+                    var fm = new FigureMoving(fs, to);
+                    if (_moves.CanMove(fm) == true)
+                        if(_board.IsCheckAfterMove(fm) == false)
+                            _figureMovings.Add(fm);
+                }
+            } 
+        }
+
+        #endregion
     }
 }

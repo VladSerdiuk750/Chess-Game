@@ -8,42 +8,54 @@ namespace Chess
 {
     class Moves
     {
-        FigureMoving figureMoving;
-        Board board;
+        #region Fields
 
+        FigureMoving _fm;
+        Board _board;
+
+        #endregion
+
+        #region Constructor
 
         public Moves(Board board)
         {
-            this.board = board;
+            this._board = board;
         }
 
+        #endregion
 
-        public bool CanMove(FigureMoving figureMoving)
+        #region Can Move
+        public bool CanMove(FigureMoving fm)
         {
-            this.figureMoving = figureMoving;
-            return
-                CanMoveFrom() &&
-                CanMoveTo() &&
-                CanFigureMove();
+            this._fm = fm;
+
+            var From = CanMoveFrom(_fm.To.OnBoard());
+            var To = CanMoveTo(_fm.To.OnBoard());
+            var FigureMove = CanFigureMove();
+
+            return From && To && FigureMove;
         }
 
-        private bool CanMoveTo()
+        private bool CanMoveTo(bool isOnBoard)
         {
-            return figureMoving.To.OnBoard() &&
-                figureMoving.From != figureMoving.To &&
-                board.GetFigureAt(figureMoving.To).GetColor() != board.MoveColor;
+            var isDifferentSquares = _fm.From != _fm.To;
+            var isRightColor = _board.GetFigureAt(_fm.To).GetColor() != _board.MoveColor;
+
+            return isOnBoard && isDifferentSquares && isRightColor;     
         }
 
 
-        private bool CanMoveFrom()
-        {
-            return figureMoving.From.OnBoard() &&
-                   figureMoving.Figure.GetColor() == board.MoveColor;
-        }
+        private bool CanMoveFrom(bool isOnBoard)
+        { 
+            var isMoveColorRight = _fm.Figure.GetColor() == _board.MoveColor;
 
+            return isOnBoard && isMoveColorRight;
+                   
+        }
+        #region CanFigureMove
         private bool CanFigureMove()
         {
-            switch (figureMoving.Figure)
+            switch (_fm.Figure)
             {
                 case Figure.whiteKing: 
                 case Figure.blackKing:
@@ -51,18 +63,15 @@ namespace Chess
 
                 case Figure.whiteQueen:
                 case Figure.blackQueen:
-                    return CanStraightMove();
+                    return CanQueenMove();
 
                 case Figure.whiteRook:
                 case Figure.blackRook:
-                    return figureMoving.SignX == 0 || figureMoving.SignY == 0 &&
-                        CanStraightMove();
+                    return CanRookMove();
 
                 case Figure.whiteBishop:
                 case Figure.blackBishop:
-                    return figureMoving.SignX != 0 && figureMoving.SignY != 0 &&
-                        CanStraightMove();
-
+                   
 
                 case Figure.whiteKnight: 
                 case Figure.blackKnight:
@@ -75,71 +84,108 @@ namespace Chess
             }
         }
 
+        private bool CanStraightMove()
+        {
+            Square at = _fm.From;
+            do
+            {
+                at = new Square(at.X + _fm.SignX, at.Y + _fm.SignY);
+                if (at == _fm.To)
+                    return true;
+            } while (at.OnBoard() &&
+                     _board.GetFigureAt(at) == Figure.none);
+            return false;
+        }
+
+
+        #region King
+        private bool CanKingMove()
+        {
+            var isMoveOnlyOneSquare = _fm.AbsDeltaX <= 1 && _fm.AbsDeltaY <= 1;
+            if (isMoveOnlyOneSquare)
+                return true;
+            return false;
+        }
+        #endregion
+
+        #region Queen
+        private bool CanQueenMove() => CanStraightMove();
+        #endregion
+
+        #region Rook
+        private bool CanRookMove()
+        {
+            var isItDiagon = _fm.SignX == 0 || _fm.SignY == 0;
+            return  isItDiagon && CanStraightMove();
+        }
+        #endregion
+        n
+        #region Bishop
+        private bool CanBishopMove()
+        {
+            var isItDiagon = _fm.SignX != 0 && _fm.SignY != 0;
+
+            return isItDiagon && CanStraightMove();
+        }
+        #endregion
+
+        #region Knight
+        private bool CanKnightMove()
+        {
+            if (_fm.AbsDeltaX == 1 && _fm.AbsDeltaY == 2) return true;
+            if (_fm.AbsDeltaX == 2 && _fm.AbsDeltaY == 1) return true;
+            return false;
+        }
+        #endregion
+
+        #region Pawn
         private bool CanPawnMove()
         {
-            if (figureMoving.From.Y<1 ||figureMoving.From.Y >6)
+            if (_fm.From.Y < 1 || _fm.From.Y > 6)
             {
                 return false;
             }
-            int stepY = figureMoving.Figure.GetColor() == Color.White ? 1 : -1;
-            return CanPawnGo(stepY) || CanPawnJump(stepY) || CanPawnEat(stepY)
-        }
+            var stepY = (_fm.Figure.GetColor() == Color.White) ? 1 : -1;
 
-        private bool CanPawnEat(int stepY)
-        {
-            if (board.GetFigureAt(figureMoving.To) != Figure.none)
-                if (figureMoving.AbsDeltaX == 1)
-                    if (figureMoving.DeltaY == stepY)
-                        return true;
-            return false;
-        }
+            var CanGo = CanPawnGo(stepY);
+            var CanJump = CanPawnJump(stepY);
+            var CanEat = CanPawnEat(stepY);
 
-        private bool CanPawnJump(int stepY)
-        {
-            if (board.GetFigureAt(figureMoving.To) == Figure.none)
-                if (figureMoving.DeltaX == 0)
-                    if (figureMoving.DeltaY == 2 * stepY)
-                        if (figureMoving.From.Y == 1 || figureMoving.From.Y == 6)
-                            if (board.GetFigureAt(new Square(figureMoving.From.X, figureMoving.From.Y + stepY)) == Figure.none)
-                                return true;
-            return false;
+            return CanGo || CanJump || CanEat;
         }
 
         private bool CanPawnGo(int stepY)
         {
-            if (board.GetFigureAt(figureMoving.To) == Figure.none)
-                if (figureMoving.DeltaX == 0)
-                    if (figureMoving.DeltaY == stepY)
-                        return true;
-            return false;
+            var isEmptyOnDestinationSquare = _board.GetFigureAt(_fm.To) == Figure.none;
+            var isStraightMove = _fm.DeltaX == 0;
+            var isMoveisOneSquare = _fm.DeltaY == stepY;
+            
+            return isEmptyOnDestinationSquare && isStraightMove && isMoveisOneSquare;
         }
 
-        private bool CanStraightMove()
+        private bool CanPawnJump(int stepY)
         {
-            Square at = figureMoving.From;
-            do
-            {
-                at = new Square(at.X + figureMoving.SignX, at.Y + figureMoving.SignY);
-                if (at == figureMoving.To)
-                    return true;
-            } while (at.OnBoard() && 
-                     board.GetFigureAt(at) == Figure.none);
-            return false;
+            var isEmptyOnDestinationSquare = _board.GetFigureAt(_fm.To) == Figure.none;
+            var isStraightMove = _fm.DeltaX == 0;
+            var isMoveTwoSquares = _fm.DeltaY == stepY;
+            var isPawnOnRightSquare = _fm.From.Y == 1 || _fm.From.Y == 6;
+            var isEmptyOnTheNextSquare = _board.GetFigureAt(new Square(_fm.From.X, _fm.From.Y + stepY)) == Figure.none;
+
+            return isEmptyOnDestinationSquare && isStraightMove && isMoveTwoSquares &&
+                   isPawnOnRightSquare && isEmptyOnTheNextSquare;
         }
 
-        private bool CanKingMove()
+        private bool CanPawnEat(int stepY)
         {
-            if (figureMoving.AbsDeltaX <= 1 && figureMoving.AbsDeltaY <= 1)
-                return true;
-            return false;
-        }
+            var isFigureOnDestinationSquare = _board.GetFigureAt(_fm.To) != Figure.none;
+            var isMoveOnlyOneSquareLeftOrRight = _fm.AbsDeltaX == 1;
+            var isStepEqualDeltaY = _fm.DeltaY == stepY;
 
-
-        private bool CanKnightMove()
-        {
-            if (figureMoving.AbsDeltaX == 1 && figureMoving.AbsDeltaY == 2) return true;
-            if (figureMoving.AbsDeltaX == 2 && figureMoving.AbsDeltaY == 1) return true;
-            return false;
+            return isFigureOnDestinationSquare && isMoveOnlyOneSquareLeftOrRight && isStepEqualDeltaY;
         }
+        #endregion
+
+        #endregion
+        #endregion
     }
 }

@@ -20,7 +20,7 @@ namespace ChessDemo
                 list = (List<string>)chess.GetAllMoves();
                 Console.WriteLine(chess.Fen);
                 Print(ChessToAscii(chess));
-                Console.WriteLine(chess.IsCheck() ? "CHECK" : "-");
+                Console.WriteLine(chess.IsCheck ? "CHECK" : "-");
                 foreach (string moves in chess.GetAllMoves())
                 {
                     Console.Write(moves + "\t");

@@ -1,0 +1,2 @@
+E:\Github\Chess-Game\Chess\Chess\obj\Debug\Chess.csprojResolveAssemblyReference.cache
+E:\Github\Chess-Game\Chess\Chess\obj\Debug\Chess.csproj.CoreCompileInputs.cache
