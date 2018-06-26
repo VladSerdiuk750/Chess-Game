@@ -45,7 +45,7 @@ namespace Chess
                 return this;
             if (_board.IsCheckAfterMove(fm) == true)
                 return this;
-            Board nextBoard = _board.Move(fm);
+            Board nextBoard = _board.Move( fm);
             var nextChess = new Chess(nextBoard);
             return nextChess;
         }
