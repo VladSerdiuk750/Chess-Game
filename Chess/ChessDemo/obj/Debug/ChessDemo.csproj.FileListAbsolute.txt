@@ -1,0 +1,10 @@
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\bin\Debug\ChessDemo.exe.config
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\bin\Debug\ChessDemo.exe
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\bin\Debug\ChessDemo.pdb
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\bin\Debug\ClassLibrary1.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\bin\Debug\ClassLibrary1.pdb
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\obj\Debug\ChessDemo.csprojAssemblyReference.cache
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\obj\Debug\ChessDemo.csproj.CoreCompileInputs.cache
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\obj\Debug\ChessDemo.csproj.CopyComplete
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\obj\Debug\ChessDemo.exe
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessDemo\obj\Debug\ChessDemo.pdb

@@ -25,18 +25,18 @@ namespace ChessDemo
                 {
                     Console.Write(moves + "\t");
                 }
-                Console.Write("> ");
+                Console.Write("\n> ");
                 string move = Console.ReadLine();
                 if (move == "q") break;
                 if (move == "") move = list[rand.Next(list.Count)];
-                chess.Move(move);
+                chess = chess.Move(move);
             }
         }
 
         // For visualisation chess in console
         static string ChessToAscii(Chess.Chess chess)
         {
-            string text = "  +-----------------+";
+            string text = "  +-----------------+\n";
             for (int y = 7; y>=0;y--)
             {
                 text += y + 1;
@@ -47,7 +47,7 @@ namespace ChessDemo
                 }
                 text += "|\n";
             }
-            text += "  +-----------------+";
+            text += "  +-----------------+\n";
             text += "    a b c d e f g h\n";
             return text;
         }

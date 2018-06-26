@@ -40,12 +40,14 @@ namespace Chess
         public Chess Move(string move) // Pe2e4         Pe7e8Q
         {
             var fm = new FigureMoving(move);
-           
-            if (_moves.CanMove(fm) == true)
-                if (_board.IsCheckAfterMove(fm) == false)
-                    return new Chess(_board.Move(fm));
 
-            return this;
+            if (_moves.CanMove(fm) == false)
+                return this;
+            if (_board.IsCheckAfterMove(fm) == true)
+                return this;
+            Board nextBoard = _board.Move( fm);
+            var nextChess = new Chess(nextBoard);
+            return nextChess;
         }
 
         #endregion

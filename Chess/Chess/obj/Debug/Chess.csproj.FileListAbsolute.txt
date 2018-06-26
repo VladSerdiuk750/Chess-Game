@@ -1,2 +1,8 @@
 E:\Github\Chess-Game\Chess\Chess\obj\Debug\Chess.csprojResolveAssemblyReference.cache
 E:\Github\Chess-Game\Chess\Chess\obj\Debug\Chess.csproj.CoreCompileInputs.cache
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\Chess\obj\Debug\Chess.csprojAssemblyReference.cache
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\Chess\obj\Debug\Chess.csproj.CoreCompileInputs.cache
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\Chess\bin\Debug\ClassLibrary1.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\Chess\bin\Debug\ClassLibrary1.pdb
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\Chess\obj\Debug\ClassLibrary1.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\Chess\obj\Debug\ClassLibrary1.pdb

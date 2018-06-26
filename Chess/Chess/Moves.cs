@@ -44,7 +44,6 @@ namespace Chess
             return isOnBoard && isDifferentSquares && isRightColor;     
         }
 
-
         private bool CanMoveFrom(bool isOnBoard)
         { 
             var isMoveColorRight = _fm.Figure.GetColor() == _board.MoveColor;
@@ -52,6 +51,7 @@ namespace Chess
             return isOnBoard && isMoveColorRight;
                    
         }
+       
         #region CanFigureMove
         private bool CanFigureMove()
         {
@@ -71,7 +71,7 @@ namespace Chess
 
                 case Figure.whiteBishop:
                 case Figure.blackBishop:
-                   
+                    return CanBishopMove();
 
                 case Figure.whiteKnight: 
                 case Figure.blackKnight:
@@ -119,7 +119,7 @@ namespace Chess
             return  isItDiagon && CanStraightMove();
         }
         #endregion
-        n
+  
         #region Bishop
         private bool CanBishopMove()
         {
@@ -167,7 +167,7 @@ namespace Chess
         {
             var isEmptyOnDestinationSquare = _board.GetFigureAt(_fm.To) == Figure.none;
             var isStraightMove = _fm.DeltaX == 0;
-            var isMoveTwoSquares = _fm.DeltaY == stepY;
+            var isMoveTwoSquares = _fm.DeltaY == stepY * 2;
             var isPawnOnRightSquare = _fm.From.Y == 1 || _fm.From.Y == 6;
             var isEmptyOnTheNextSquare = _board.GetFigureAt(new Square(_fm.From.X, _fm.From.Y + stepY)) == Figure.none;
 
@@ -186,6 +186,8 @@ namespace Chess
         #endregion
 
         #endregion
+
         #endregion
     }
 }
+    
