@@ -1,0 +1,16 @@
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\ChessTest.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\ChessTest.pdb
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\ClassLibrary1.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\ClassLibrary1.pdb
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\obj\Debug\ChessTest.csprojAssemblyReference.cache
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\obj\Debug\ChessTest.csproj.CoreCompileInputs.cache
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\obj\Debug\ChessTest.csproj.CopyComplete
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\obj\Debug\ChessTest.dll
+C:\Users\Юра\Documents\GitHub\Chess-Game\Chess\ChessTest\obj\Debug\ChessTest.pdb

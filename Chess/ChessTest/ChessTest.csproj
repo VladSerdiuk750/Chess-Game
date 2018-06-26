@@ -48,8 +48,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KnightTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BoardTest.cs" />
+    <Compile Include="PawnTest.cs" />
+    <Compile Include="CanMoveTestFromAndToCondition.cs" />
+    <Compile Include="KingTest.cs" />
+    <Compile Include="QueenTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
